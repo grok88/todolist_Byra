@@ -6,6 +6,7 @@ import TodoListBody from "../todolist-body/TodoListBody";
 import AddTask from "../add-task/AddTask";
 import {v1} from 'uuid';
 import TodoList from "../todolist/TodoList";
+import {log} from "util";
 
 export type TaskType = {
     id: string,
@@ -22,15 +23,33 @@ function App() {
         {id: v1(), title: "Learn React", isDone: true, important: false},
         {id: v1(), title: "Learn JS", isDone: false, important: false},
     ]);
+
     let [filter, setFilter] = useState<filterType>('all');
 
+    let [value, setValue] = useState<string>('');
+
+    const onChangeFilterValue = (value:string) => {
+        setValue(value);
+    }
+
+    // Search panel tasks
+    const searchTasks = (value: string) => {
+        if(value === ''){
+            return tasks;
+        } else {
+            return tasks.filter(task => task.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
+        }
+    }
+
+   let  filteredTasks = searchTasks(value);
+
     // Filter Tasks button
-    let filteredTasks = tasks;
+    // let filteredTasks = tasks;
     if (filter === 'active') {
-        filteredTasks = tasks.filter(task => task.isDone === false);
+        filteredTasks = filteredTasks.filter(task => task.isDone === false);
     }
     if (filter === 'completed') {
-        filteredTasks = tasks.filter(task => task.isDone === true);
+        filteredTasks = filteredTasks.filter(task => task.isDone === true);
     }
     // changeFilter
     const changeFilter = (value: filterType) => {
@@ -67,6 +86,8 @@ function App() {
             setTasks([...tasks]);
         }
     }
+
+
     return (
         <TodoList tasks={filteredTasks}
                   addTask={addTask}
@@ -75,6 +96,8 @@ function App() {
                   toggleIsDone={toggleIsDone}
                   changeFilter={changeFilter}
                   filter={filter}
+                  searchTasks={searchTasks}
+                  onChangeFilterValue={onChangeFilterValue}
         />
     );
 }

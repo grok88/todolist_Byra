@@ -12,15 +12,21 @@ export type TodoListPropsType = {
     toggleImportant: (id: string) => void
     toggleIsDone: (id: string) => void
     changeFilter: (value: filterType) => void
-    filter: filterType
+    filter: filterType,
+    searchTasks: (value: string) => void,
+    onChangeFilterValue: (value: string) => void,
 }
 
 const TodoList = (props: TodoListPropsType) => {
-    let {tasks, addTask, removeTask, toggleImportant, toggleIsDone, changeFilter, filter} = props;
+    let {tasks, addTask, removeTask, toggleImportant, toggleIsDone, changeFilter, filter, searchTasks, onChangeFilterValue} = props;
     return (
         <div>
             <Header tasks={tasks}/>
-            <SearchPanel changeFilter={changeFilter} filter={filter}/>
+            <SearchPanel changeFilter={changeFilter}
+                         filter={filter}
+                         searchTasks={searchTasks}
+                         onChangeFilterValue={onChangeFilterValue}
+            />
             <TodoListBody tasks={tasks}
                           removeTask={removeTask}
                           toggleImportant={toggleImportant}
