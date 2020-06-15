@@ -6,11 +6,12 @@ export type SearchPanelPropsType = {
     filter: filterType,
     searchTasks: (value: string) => void,
     onChangeFilterValue: (value: string) => void,
+    searchValue:string
 }
 const SearchPanel = (props: SearchPanelPropsType) => {
-    const {changeFilter, filter, searchTasks,onChangeFilterValue} = props;
+    const {changeFilter, filter, searchTasks, onChangeFilterValue, searchValue} = props;
 
-    let [value, setValue] = useState<string>("");
+    //let [value, setValue] = useState<string>("");
 
     const onClickAllFilter = () => {
         changeFilter('all');
@@ -23,14 +24,14 @@ const SearchPanel = (props: SearchPanelPropsType) => {
     }
     const onChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
         let value = e.currentTarget.value;
-        setValue(value);
-        searchTasks(value);
+        //setValue(value);
+        // searchTasks(value);
         onChangeFilterValue(value);
     }
 
     return (
         <div>
-            <input type="text" placeholder={'Type to search'} value={value} onChange={onChangeValue}/>
+            <input type="text" placeholder={'Type to search'} value={searchValue} onChange={onChangeValue}/>
             <div>
                 <button className={filter === "all" ? "activeButton" : ""} onClick={onClickAllFilter}>All</button>
                 <button className={filter === "active" ? "activeButton" : ""} onClick={onClickActiveFilter}>Active

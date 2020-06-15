@@ -37,7 +37,8 @@ function App() {
         if(value === ''){
             return tasks;
         } else {
-            return tasks.filter(task => task.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
+            // return tasks.filter(task => task.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
+            return tasks.filter(task => task.title.toLowerCase().includes(value.toLowerCase()));
         }
     }
 
@@ -98,6 +99,7 @@ function App() {
                   filter={filter}
                   searchTasks={searchTasks}
                   onChangeFilterValue={onChangeFilterValue}
+                  searchValue = {value}
         />
     );
 }
