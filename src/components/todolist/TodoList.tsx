@@ -1,0 +1,35 @@
+import Header from "../header/Header";
+import SearchPanel from "../search-panel/SearchPanel";
+import TodoListBody from "../todolist-body/TodoListBody";
+import AddTask from "../add-task/AddTask";
+import React from "react";
+import {filterType, TaskType} from "../app/App";
+
+export type TodoListPropsType = {
+    addTask: (value: string) => void,
+    tasks: Array<TaskType>,
+    removeTask: (id: string) => void,
+    toggleImportant: (id: string) => void
+    toggleIsDone: (id: string) => void
+    changeFilter: (value: filterType) => void
+    filter: filterType
+}
+
+const TodoList = (props: TodoListPropsType) => {
+    let {tasks, addTask, removeTask, toggleImportant, toggleIsDone, changeFilter, filter} = props;
+    return (
+        <div>
+            <Header tasks={tasks}/>
+            <SearchPanel changeFilter={changeFilter} filter={filter}/>
+            <TodoListBody tasks={tasks}
+                          removeTask={removeTask}
+                          toggleImportant={toggleImportant}
+                          toggleIsDone={toggleIsDone}
+
+            />
+            <AddTask addTask={addTask}/>
+        </div>
+    );
+}
+
+export default TodoList;
