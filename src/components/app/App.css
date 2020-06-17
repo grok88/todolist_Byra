@@ -8,3 +8,7 @@
 .activeButton{
     background-color: deepskyblue;
 }
+.button{
+    border-box:box-sizing;
+    width: 100%;
+}

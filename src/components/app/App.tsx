@@ -1,12 +1,8 @@
 import React, {useState} from 'react';
 import './App.css';
-import Header from "../header/Header";
-import SearchPanel from "../search-panel/SearchPanel";
-import TodoListBody from "../todolist-body/TodoListBody";
-import AddTask from "../add-task/AddTask";
 import {v1} from 'uuid';
 import TodoList from "../todolist/TodoList";
-import {log} from "util";
+import {Container, Grid} from "@material-ui/core";
 
 export type TaskType = {
     id: string,
@@ -28,13 +24,13 @@ function App() {
 
     let [value, setValue] = useState<string>('');
 
-    const onChangeFilterValue = (value:string) => {
+    const onChangeFilterValue = (value: string) => {
         setValue(value);
     }
 
     // Search panel tasks
     const searchTasks = (value: string) => {
-        if(value === ''){
+        if (value === '') {
             return tasks;
         } else {
             // return tasks.filter(task => task.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
@@ -42,7 +38,7 @@ function App() {
         }
     }
 
-   let  filteredTasks = searchTasks(value);
+    let filteredTasks = searchTasks(value);
 
     // Filter Tasks button
     // let filteredTasks = tasks;
@@ -90,17 +86,21 @@ function App() {
 
 
     return (
-        <TodoList tasks={filteredTasks}
-                  addTask={addTask}
-                  removeTask={removeTask}
-                  toggleImportant={toggleImportant}
-                  toggleIsDone={toggleIsDone}
-                  changeFilter={changeFilter}
-                  filter={filter}
-                  searchTasks={searchTasks}
-                  onChangeFilterValue={onChangeFilterValue}
-                  searchValue = {value}
-        />
+        <Container >
+            <Grid container >
+                <TodoList tasks={filteredTasks}
+                          addTask={addTask}
+                          removeTask={removeTask}
+                          toggleImportant={toggleImportant}
+                          toggleIsDone={toggleIsDone}
+                          changeFilter={changeFilter}
+                          filter={filter}
+                          searchTasks={searchTasks}
+                          onChangeFilterValue={onChangeFilterValue}
+                          searchValue={value}
+                />
+            </Grid>
+        </Container>
     );
 }
 

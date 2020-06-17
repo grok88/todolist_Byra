@@ -1,4 +1,5 @@
 import React, {useState, ChangeEvent, KeyboardEvent} from "react";
+import {Button, Grid, TextField} from "@material-ui/core";
 
 export type AddTaskPropsType = {
     addTask: (value: string) => void;
@@ -28,9 +29,15 @@ const AddTask = (props: AddTaskPropsType) => {
 
     return (
         <div>
-            <input type="text" placeholder={'Add new Task'} value={value} onChange={onChangeValue}
-                   onKeyPress={onPressChangeValue}/>
-            <button onClick={onAddTask}>Add</button>
+            <Grid container justify={"space-between"} alignItems={"flex-end"}>
+                <Grid item xs={10}>
+                    <TextField style={{width:"100%"}}  value={value} onChange={onChangeValue}
+                               onKeyPress={onPressChangeValue}  label={'Add new Task'}/>
+                </Grid>
+                <Grid item>
+                    <Button className={`button`} style={{ float:"right"}} variant={"outlined"} color={"primary"} onClick={onAddTask} >Add</Button>
+                </Grid>
+            </Grid>
         </div>
     );
 }
